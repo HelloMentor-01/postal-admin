@@ -9,6 +9,8 @@ import { BsSortAlphaDownAlt } from "react-icons/bs";
 import { TiArrowSortedUp } from "react-icons/ti";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { gql, useQuery } from "@apollo/client";
+import { IoIosLogOut } from "react-icons/io";
+import {useRouter} from 'next/navigation'
 
 /*  Graphql Query */
 const GET_CUSTOMER_DETAILS = gql`
@@ -38,7 +40,7 @@ const GET_CUSTOMER_DETAILS = gql`
 
 const SectionOne = () => {
   const { data, loading, error } = useQuery(GET_CUSTOMER_DETAILS);
-
+  const router = useRouter()
   const CustomerDetails = data?.getAllUserDetails?.data;
 
 
@@ -118,6 +120,12 @@ const SectionOne = () => {
     return result;
   };
 
+  const Logout = () =>{
+    localStorage.clear()
+    router.push('/')
+
+  }
+
   useEffect(() => {
     freeplan();
     exploreplan();
@@ -127,6 +135,13 @@ const SectionOne = () => {
   return (
     <>
       <section className={style.maincontainer}>
+        <div className={style.navbar}>
+         <div className={style.flex}>
+          <p className={style.profilefnt}>Welcome {localStorage.getItem('Profile').replace(/[|&;$%@"<>()+,]/g, "")}</p>
+          <IoIosLogOut size={30} onClick={Logout} />
+         </div>
+        </div>
+       
         <h2 className={style.fnt}>Customer Details</h2>
         <div>
           <div className={style.cardcontainer}>

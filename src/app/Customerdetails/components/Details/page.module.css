@@ -172,4 +172,31 @@
 
 }
 
+.navbar{
+  margin: 0;
+  padding: 0;
+  border:1px solid black;
+  width: 100%;
+  background: #0a9ced;
+  max-height: 100%;
+}
 
+
+.flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 72rem;
+  align-items: center;
+}
+
+.profilefnt{
+  color: white;
+  padding: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.8;
+  text-align: center;
+  margin: 0;
+}

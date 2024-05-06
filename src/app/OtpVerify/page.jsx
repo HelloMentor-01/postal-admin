@@ -1,7 +1,7 @@
 import React from 'react'
 import OtpVerify from './Component/OtpVerify'
 
-const OtpVerify = () =>{
+const Otp = () =>{
     return (
         <>
         <OtpVerify/>
@@ -13,4 +13,4 @@ const OtpVerify = () =>{
 
 
 
-export default OtpVerify
+export default Otp

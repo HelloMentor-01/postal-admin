@@ -7,7 +7,8 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  const Token = process.env.TOKEN
+  // Need to Add a Condition if local storage is empty it will show no error
+  const Token = typeof localStorage !== 'undefined' ? localStorage.getItem('Auth') : null;
   return (
     <html lang="en">
       <body>

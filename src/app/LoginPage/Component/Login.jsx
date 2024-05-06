@@ -1,9 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/navigation';
 import style from './page.module.css'
 import {useState} from 'react'
 import {useMutation,gql} from '@apollo/client'
+
 
 // Sending the data to the graphql
 const PHONENUMBER = gql`
@@ -19,9 +21,11 @@ mutation Login ($phone: String!) {
 
 
 const LoginPage = () =>{
+    const router = useRouter()
     const [phone,setPhone] = useState()
     const [login] = useMutation(PHONENUMBER)
     const [notification,setNotification] = useState(false)
+ 
 
     const handlePhone = (e)=>{
         setPhone(e.target.value)
@@ -35,12 +39,18 @@ const LoginPage = () =>{
 
       if(response?.data?.login?.status == 200){
         setNotification(true)
-        setPhone('')
+         localStorage.setItem('phonenumber',phone)
+         router.push('/OtpVerify')
+         
+        
+
       }else if(response?.data?.login?.status == 404){
         alert('Opps Your Number Doest Exist')
       }
    
    }
+
+
 
     return (
         <>
