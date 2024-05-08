@@ -43,6 +43,27 @@ const SectionOne = () => {
   const router = useRouter()
   const CustomerDetails = data?.getAllUserDetails?.data;
 
+  // Pagination
+  const [currentpage,setCurrentPage] = useState(1)
+  const [postperPage] = useState(10)
+
+  // Pagination Formula
+  const inputLast = currentpage * postperPage
+  const inputFirst = inputLast - postperPage
+  const Paginationdata = CustomerDetails?.slice(inputFirst,inputLast)
+
+
+  // PaginationNumber 
+  const PageNumber = []
+  for(let i=1;i<=Math.ceil(CustomerDetails?.length / postperPage);i++){
+    PageNumber.push(i)
+  }
+
+
+  // Const Pagination 
+  const Paginationpage = (data) =>{
+    setCurrentPage(data)
+  }
 
   const [sort, setSort] = useState();
   const [sorted, setSorted] = useState(false);
@@ -126,6 +147,7 @@ const SectionOne = () => {
 
   }
 
+   
   useEffect(() => {
     freeplan();
     exploreplan();
@@ -169,6 +191,14 @@ const SectionOne = () => {
               <div className={style.background__}></div>
             </div>
           </div>
+
+           <div className={style.numberofpeople}>
+             {/* <input type='text' className={style.searchbar} placeholder="Search By Keywords" /> */}
+             <span >Total Purchase - {CustomerDetails?.length}</span>
+
+           </div>
+          
+           
           <table className={style.table}>
             <thead>
               <tr className={style.tr}>
@@ -209,7 +239,6 @@ const SectionOne = () => {
                 </th>
               </tr>
             </thead>
-
             <tbody>
                 {loading ? <p>Loading... </p> : sorted
                 ? purchase
@@ -271,7 +300,7 @@ const SectionOne = () => {
                       <td className={style.td}>{data.DegreeType.name}</td>
                     </tr>
                   ))
-                : CustomerDetails?.map((data, i) => (
+                : Paginationdata?.map((data, i) => (
                     <tr key={i} className={style.tr}>
                       <td className={style.td}>{data.first_name}</td>
                       <td className={style.td}>{data.email}</td>
@@ -355,8 +384,18 @@ const SectionOne = () => {
                   ))} */}
             </tbody>
           </table>
+          <div className={style.paginationcontainer}>
+          <ul  >
+            {PageNumber.map((data)=>{
+              return (
+                <li className={style.paginationinside} onClick={()=>Paginationpage(data)}>{data}</li>
+              )
+            })}
+          </ul>
+          </div>
+
         </div>
-      </section>
+      </section> 	
     </>
   );
 };
