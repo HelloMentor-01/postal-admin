@@ -48,7 +48,7 @@
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.8;
-  text-align: center;
+
 }
 
 .tr:hover {
@@ -199,4 +199,104 @@
   line-height: 1.8;
   text-align: center;
   margin: 0;
+}
+
+
+.numberofpeople{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: relative;
+  top: 3rem;
+  right: 5rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.8;
+  text-align: center;
+  margin: 0;
+  gap:2rem;
+}
+
+.pagination {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+  background-color: #f4f4f4;
+}
+
+.pagination .active a {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+
+/* Pagination Page */
+.paginationcontainer{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginationinside{
+  margin-left: 0.5rem;
+  border-radius: .5rem;
+  color: black;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 0.8rem;
+  box-sizing: border-box;
+}
+
+.paginationinside:hover{
+  background-color: #0a9ced;
+  color: white;
+  border: 1px solid #0a9ced;
+}
+
+
+.searchbar{
+  display: flex;
+height: 2.375rem;
+padding: var(--Spacing-gap-0, 0rem) var(--Spacing-gap-8, 0.5rem);
+
+
+
+
+
+align-items: center;
+gap: 0.625rem;
+align-self: stretch;
+border-radius: var(--Curve-curve-1, 0.25rem);
+border: 1px solid var(--Black-300, #B0B0B0);
 }

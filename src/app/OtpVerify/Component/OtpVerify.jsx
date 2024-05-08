@@ -5,6 +5,10 @@ import style from './page.module.css';
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const OTPVERIFYPAGE = gql`
   mutation VerifyOtp($otp: String!, $phone: String!) {
@@ -50,6 +54,9 @@ const OtpVerify = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+    
     const response = await verifyOtp({
       variables: {
         otp: otp.join(''),
@@ -63,14 +70,23 @@ const OtpVerify = () => {
       localStorage.setItem('Auth', saveAuth);
       localStorage.setItem('Profile', JSON.stringify(saveName));
       setOtp(['', '', '', '']);
+      // toast.success("OTP Verified", {
+      //   position: toast.POSITION.TOP_CENTER,
+      // });
       Router.push('/Customerdetails');
-    } else {
-      alert('Invalid Otp');
+    } else if(response?.data.verifyOtp.status === 400) {
+      alert('sdsdg')
+      // toast.error("Invalid OTP",{
+      //   position: toast.POSITION.TOP_CENTER,
+      // }
+      // )
+      setOtp(['', '', '', '']);
     }
   };
 
   return (
     <>
+      <ToastContainer position="top-center" /> 
       <section className={style.maincontainer}>
         <div className={style.card}>
           <h1 className={style.heading}>Enter OTP</h1>
