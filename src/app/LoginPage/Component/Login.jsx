@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import style from "./page.module.css";
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
+import Swal from 'sweetalert2'
+
 
 
 // Sending the data to the graphql
@@ -49,21 +51,22 @@ const LoginPage = () => {
       const response = await login({
         variables: { phone: phone },
       });
-
+           
+      console.log(response,'response')
       if (response?.data?.login?.status == 200) {
         localStorage.setItem("phonenumber", phone);
-        // Swal.fire({
-        //   title: "Success",
-        //   text: "OTP sent To your Phone Number",
-        //   icon: "success",
-        // });
+        Swal.fire({
+          title: "Success",
+          text: "OTP sent To your Phone Number",
+          icon: "success",
+        });
         router.push("/OtpVerify");
       } else if (response?.data?.login?.status == 404) {
-        // Swal.fire({
-        //     icon: "error",
-        //     title: "Oops...",
-        //     text: "Your Phone Number is not Registered",
-        //   });
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Your Phone Number is not Registered",
+          });
           setPhone('')
       }
     }

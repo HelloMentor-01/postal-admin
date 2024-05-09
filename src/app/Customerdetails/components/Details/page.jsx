@@ -154,6 +154,8 @@ const SectionOne = () => {
     achieveplan();
   }, [CustomerDetails]);
 
+
+
   return (
     <>
       <section className={style.maincontainer}>
