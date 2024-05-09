@@ -11,6 +11,8 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { gql, useQuery } from "@apollo/client";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import SearchSvg from "./Svg/SearchSvg";
+
 
 /*  Graphql Query */
 const GET_CUSTOMER_DETAILS = gql`
@@ -43,21 +45,53 @@ const SectionOne = () => {
   const router = useRouter();
   const CustomerDetails = data?.getAllUserDetails?.data;
 
+  const [details, setDetails] = useState([])
+
   // Search
   const [search, setSearch] = useState("");
+    // Pagination
+    const [currentpage, setCurrentPage] = useState(1);
+    const [postperPage] = useState(10);
 
-  // Pagination
-  const [currentpage, setCurrentPage] = useState(1);
-  const [postperPage] = useState(10);
+  // Search Logic
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
-  // Pagination Formula
+  const handleSearchDetails = () => {
+    if (!CustomerDetails) return [];
+    setCurrentPage(1)
+    return CustomerDetails.filter(data => {
+      const searchTerm = search.toLowerCase();
+      return (
+        data.first_name.toLowerCase().includes(searchTerm) ||
+        data.email.toLowerCase().includes(searchTerm) ||
+        data.phone_number.includes(search) ||
+        (data.SubscriptionPlan && data.SubscriptionPlan.plan_name.includes(searchTerm))
+      );
+    });
+    
+  };
+  
+  useEffect(() => {
+    const filteredDetails = handleSearchDetails();
+    setDetails(filteredDetails)
+    // Do something with filteredDetails
+  }, [search, CustomerDetails]);
+
+
+  console.log("search", search)
+
+
+
+  // Pagination Formula+
   const inputLast = currentpage * postperPage;
   const inputFirst = inputLast - postperPage;
-  const Paginationdata = CustomerDetails?.slice(inputFirst, inputLast);
+  const Paginationdata = details?.slice(inputFirst, inputLast);
 
   // PaginationNumber
   const PageNumber = [];
-  for (let i = 1; i <= Math.ceil(CustomerDetails?.length / postperPage); i++) {
+  for (let i = 1; i <= Math.ceil(details?.length / postperPage); i++) {
     PageNumber.push(i);
   }
 
@@ -77,7 +111,7 @@ const SectionOne = () => {
   const [achieve, setAchieve] = useState();
 
   const handleSort = () => {
-    const sortedusername = [...CustomerDetails].sort((a, b) => {
+    const sortedusername = [...Paginationdata].sort((a, b) => {
       const usernameA = a.first_name.toUpperCase();
       const usernameB = b.first_name.toUpperCase();
       if (usernameA < usernameB) {
@@ -97,7 +131,7 @@ const SectionOne = () => {
   };
 
   const handlePG = () => {
-    const filterplan = [...CustomerDetails].filter((data) => {
+    const filterplan = [...Paginationdata].filter((data) => {
       return data.DegreeType.name == "PG";
     });
 
@@ -107,7 +141,7 @@ const SectionOne = () => {
   };
 
   const handleUG = () => {
-    const filterplan = [...CustomerDetails].filter((data) => {
+    const filterplan = [...Paginationdata].filter((data) => {
       return data.DegreeType.name == "UG";
     });
     setUg(filterplan);
@@ -147,20 +181,6 @@ const SectionOne = () => {
     router.push("/");
   };
 
-  // Search Logic
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-
-  const filteredData = Paginationdata?.filter((data) => {
-    return (
-      data.first_name.toLowerCase().includes(search.toLowerCase()) ||
-      data.email.toLowerCase().includes(search.toLowerCase()) ||
-      data.phone_number.includes(search) ||
-      data.SubscriptionPlan.plan_name.includes(search)
-    );
-  });
-
   useEffect(() => {
     freeplan();
     exploreplan();
@@ -183,37 +203,40 @@ const SectionOne = () => {
         <h2 className={style.fnt}>Customer Details</h2>
         <div>
           <div className={style.cardcontainer}>
-            <div className={style.card}>
+            <div className={style.card__}>
               <p className={style.freefnt_}>
-                Number of individuals who acquired the Free Package -{" "}
+                Free Package Users <br />
                 {free && free}
               </p>
-              <div className={style.background}></div>
+              <div className={style.background__}></div>
             </div>
 
             <div className={style.card_}>
               <p className={style.freefnt_}>
-                Number of individuals who acquired the Explore Package -{" "}
+                Explore Package Users <br />
                 {explore && explore}
               </p>
               <div className={style.background_}></div>
             </div>
 
-            <div className={style.card__}>
+            <div className={style.card}>
               <p className={style.freefnt_}>
-                Number of individuals who acquired the Achieve Package -{" "}
+                Achieve Package Users <br />
                 {achieve && achieve}
               </p>
-              <div className={style.background__}></div>
+              <div className={style.background}></div>
             </div>
           </div>
 
           <div className={style.numberofpeople}>
+            <div className={style.searchBaricon} >
+              <SearchSvg/>
+            </div>
             <input
               type="text"
               onChange={handleSearch}
               className={style.searchbar}
-              placeholder="Search By Keywords"
+              placeholder="Search By KeyWords"
             />
             <span>Total Purchase - {CustomerDetails?.length}</span>
           </div>
@@ -324,7 +347,7 @@ const SectionOne = () => {
                   </tr>
                 ))
               ) : (
-                filteredData?.map((data, i) => (
+                Paginationdata?.map((data, i) => (
                   <tr key={i} className={style.tr}>
                     <td className={style.td}>{data.first_name}</td>
                     <td className={style.td}>{data.email}</td>
@@ -336,77 +359,6 @@ const SectionOne = () => {
                   </tr>
                 ))
               )}
-              {/* {sorted
-                ? purchase
-                  ? pg.map((data, i) => (
-                      <tr key={i} className={style.tr}>
-                        <td className={style.td}>{data.first_name}</td>
-                        <td className={style.td}>{data.email}</td>
-                        <td className={style.td}>{data.phone_number}</td>
-                        <td className={style.td}>
-                          {data.SubscriptionPlan.plan_name}
-                        </td>
-                        <td className={style.td}>{data.DegreeType.name}</td>
-                      </tr>
-                    ))
-                  : ugdata
-                  ? ug.map((data, i) => (
-                      <tr key={i} className={style.tr}>
-                        <td className={style.td}>{data.first_name}</td>
-                        <td className={style.td}>{data.email}</td>
-                        <td className={style.td}>{data.phone_number}</td>
-                        <td className={style.td}>
-                          {data.SubscriptionPlan.plan_name}
-                        </td>
-                        <td className={style.td}>{data.DegreeType.name}</td>
-                      </tr>
-                    ))
-                  : sort.map((data, i) => (
-                      <tr key={i} className={style.tr}>
-                        <td className={style.td}>{data.first_name}</td>
-                        <td className={style.td}>{data.email}</td>
-                        <td className={style.td}>{data.phone_number}</td>
-                        <td className={style.td}>
-                          {data.SubscriptionPlan.plan_name}
-                        </td>
-                        <td className={style.td}>{data.DegreeType.name}</td>
-                      </tr>
-                    ))
-                : purchase
-                ? pg.map((data, i) => (
-                    <tr key={i} className={style.tr}>
-                      <td className={style.td}>{data.first_name}</td>
-                      <td className={style.td}>{data.email}</td>
-                      <td className={style.td}>{data.phone_number}</td>
-                      <td className={style.td}>
-                        {data.SubscriptionPlan.plan_name}
-                      </td>
-                      <td className={style.td}>{data.DegreeType.name}</td>
-                    </tr>
-                  ))
-                : ugdata
-                ? ug.map((data, i) => (
-                    <tr key={i} className={style.tr}>
-                      <td className={style.td}>{data.first_name}</td>
-                      <td className={style.td}>{data.email}</td>
-                      <td className={style.td}>{data.phone_number}</td>
-                      <td className={style.td}>
-                        {data.SubscriptionPlan.plan_name}
-                      </td>
-                      <td className={style.td}>{data.DegreeType.name}</td>
-                    </tr>
-                  ))
-                : CustomerDetails?.map((data, i) => (
-                    <tr key={i} className={style.tr}>
-                      <td className={style.td}>{data.first_name}</td>
-                      <td className={style.td}>{data.email}</td>
-                      <td className={style.td}>{data.phone_number}</td>
-                      <td className={style.td}>
-                        {data.SubscriptionPlan.plan_name}
-                      </td>
-                      <td className={style.td}>{data.DegreeType.name}</td>
-                    </tr>
-                  ))} */}
             </tbody>
           </table>
           <div className={style.paginationcontainer}>
@@ -414,6 +366,7 @@ const SectionOne = () => {
               {PageNumber.map((data) => {
                 return (
                   <li
+                    style={{ background: currentpage == data && "#0a9ced" }}
                     className={style.paginationinside}
                     onClick={() => Paginationpage(data)}
                   >

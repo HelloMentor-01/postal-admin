@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 .maincontainer {
   width: 100%;
@@ -11,7 +11,7 @@
 }
 
 .fnt{
-  font-family: "Oswald", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 2rem;
   font-weight: 600;
   line-height: 1.8;
@@ -32,7 +32,7 @@
 
 .th {
   color: white;
-  font-family: "Oswald", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.8;
@@ -45,7 +45,7 @@
 .td {
   color: black;
   padding: 10px;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.8;
@@ -162,15 +162,17 @@
 }
 
 .freefnt_{
-  padding: 3rem;
+  padding: 2rem;
   color: #2d2d2c;
   position: relative;
   z-index: 2;
-  font-family: "Oswald", sans-serif;
-  font-size: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1.8rem;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.1px;
+  text-align: center;
+
 
 }
 
@@ -195,7 +197,7 @@
 .profilefnt{
   color: white;
   padding: 10px;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.8;
@@ -212,14 +214,19 @@
   position: relative;
   top: 3rem;
   right: 5rem;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.8;
   text-align: center;
   margin: 0;
   gap:2rem;
+  position: relative;
+  top:2rem;
+  align-items: center;
 }
+
+
 
 .pagination {
   list-style-type: none;
@@ -273,7 +280,7 @@
   flex-direction: row;
   justify-content: center;
   list-style: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   line-height: 0.8rem;
@@ -287,18 +294,24 @@
 }
 
 
-.searchbar{
+  .searchbar{
   display: flex;
-height: 2.375rem;
-padding: var(--Spacing-gap-0, 0rem) var(--Spacing-gap-8, 0.5rem);
+  height: 2.375rem;
+  padding: var(--Spacing-gap-0, 0rem) var(--Spacing-gap-8, 0.5rem) 0rem 1.8rem;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+  border-radius: var(--Curve-curve-1, 0.25rem);
+  border: 1px solid var(--Black-300, #B0B0B0);
+  }
 
+  .searchbar::placeholder{
+  text-align: start;
+  }
 
-
-
-
-align-items: center;
-gap: 0.625rem;
-align-self: stretch;
-border-radius: var(--Curve-curve-1, 0.25rem);
-border: 1px solid var(--Black-300, #B0B0B0);
-}
+  .searchBaricon{
+    position: absolute;
+    right: 370px;
+    top: 10px;
+  }
+  
