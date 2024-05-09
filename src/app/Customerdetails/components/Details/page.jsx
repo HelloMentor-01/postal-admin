@@ -152,7 +152,7 @@ const SectionOne = () => {
     setSearch(e.target.value);
   };
 
-  const filteredData = Pagination?.filter((data) => {
+  const filteredData = Paginationdata?.filter((data) => {
     return (
       data.first_name.toLowerCase().includes(search.toLowerCase()) ||
       data.email.toLowerCase().includes(search.toLowerCase()) ||
