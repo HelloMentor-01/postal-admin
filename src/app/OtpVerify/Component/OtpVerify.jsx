@@ -5,9 +5,7 @@ import style from './page.module.css';
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-
+import Swal from 'sweetalert2'
 
 
 const OTPVERIFYPAGE = gql`
@@ -70,23 +68,24 @@ const OtpVerify = () => {
       localStorage.setItem('Auth', saveAuth);
       localStorage.setItem('Profile', JSON.stringify(saveName));
       setOtp(['', '', '', '']);
-      // toast.success("OTP Verified", {
-      //   position: toast.POSITION.TOP_CENTER,
-      // });
+      Swal.fire({
+        title: "Success",
+        text: "OTP Verified",
+        icon: "success",
+      });
       Router.push('/Customerdetails');
     } else if(response?.data.verifyOtp.status === 400) {
-      alert('sdsdg')
-      // toast.error("Invalid OTP",{
-      //   position: toast.POSITION.TOP_CENTER,
-      // }
-      // )
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "OTP Doest Match",
+      });
       setOtp(['', '', '', '']);
     }
   };
 
   return (
     <>
-      <ToastContainer position="top-center" /> 
       <section className={style.maincontainer}>
         <div className={style.card}>
           <h1 className={style.heading}>Enter OTP</h1>
