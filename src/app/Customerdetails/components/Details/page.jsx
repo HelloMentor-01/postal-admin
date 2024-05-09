@@ -165,7 +165,6 @@ const SectionOne = () => {
           <IoIosLogOut size={30} onClick={Logout} />
          </div>
         </div>
-       
         <h2 className={style.fnt}>Customer Details</h2>
         <div>
           <div className={style.cardcontainer}>
