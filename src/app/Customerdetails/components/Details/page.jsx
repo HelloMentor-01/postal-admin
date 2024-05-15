@@ -49,9 +49,9 @@ const SectionOne = () => {
 
   // Search
   const [search, setSearch] = useState("");
-    // Pagination
-    const [currentpage, setCurrentPage] = useState(1);
-    const [postperPage] = useState(10);
+  // Pagination
+  const [currentpage, setCurrentPage] = useState(1);
+  const [postperPage] = useState(10);
 
   // Search Logic
   const handleSearch = (e) => {
@@ -70,9 +70,9 @@ const SectionOne = () => {
         (data.SubscriptionPlan && data.SubscriptionPlan.plan_name.includes(searchTerm))
       );
     });
-    
+
   };
-  
+
   useEffect(() => {
     const filteredDetails = handleSearchDetails();
     setDetails(filteredDetails)
@@ -177,7 +177,8 @@ const SectionOne = () => {
   };
 
   const Logout = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    typeof window !== 'undefined' ? localStorage.clear() : null;
     router.push("/");
   };
 
@@ -194,7 +195,7 @@ const SectionOne = () => {
           <div className={style.flex}>
             <p className={style.profilefnt}>
               Welcome{" "}
-              {localStorage.getItem("Profile").replace(/[|&;$%@"<>()+,]/g, "")}
+              {typeof window !== 'undefined' ? localStorage.getItem("Profile").replace(/[|&;$%@"<>()+,]/g, "") : null}
             </p>
             <IoIosLogOut size={30} onClick={Logout} />
           </div>
@@ -230,7 +231,7 @@ const SectionOne = () => {
 
           <div className={style.numberofpeople}>
             <div className={style.searchBaricon} >
-              <SearchSvg/>
+              <SearchSvg />
             </div>
             <input
               type="text"
@@ -363,9 +364,10 @@ const SectionOne = () => {
           </table>
           <div className={style.paginationcontainer}>
             <ul>
-              {PageNumber.map((data) => {
+              {PageNumber.map((data, index) => {
                 return (
                   <li
+                    key={index}
                     style={{ background: currentpage == data && "#0a9ced" }}
                     className={style.paginationinside}
                     onClick={() => Paginationpage(data)}
