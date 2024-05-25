@@ -34,10 +34,10 @@ const OtpVerify = () => {
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
 
   useEffect(() => {
-    const phoneNumber = localStorage.getItem('phonenumber');
+    const phoneNumber =  typeof window !== 'undefined' ? localStorage.getItem('phonenumber') : null;
     if (phoneNumber) {
       setPhone(phoneNumber);
-      localStorage.clear();
+     typeof window !== 'undefined' ? localStorage.clear() : null;
     }
   }, []);
 
@@ -65,8 +65,8 @@ const OtpVerify = () => {
     if (response?.data.verifyOtp.status === 200) {
       const saveAuth = response?.data?.verifyOtp?.accessToken;
       const saveName = response?.data?.verifyOtp?.data[0]?.first_name;
-      localStorage.setItem('Auth', saveAuth);
-      localStorage.setItem('Profile', JSON.stringify(saveName));
+    typeof window !== 'undefined' ? localStorage.setItem('Auth', saveAuth) : null;
+    typeof window !== 'undefined' ? localStorage.setItem('Profile', JSON.stringify(saveName)): null;
       setOtp(['', '', '', '']);
       Swal.fire({
         title: "Success",

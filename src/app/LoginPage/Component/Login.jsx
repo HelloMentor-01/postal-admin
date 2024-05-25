@@ -24,7 +24,7 @@ const LoginPage = () => {
   const router = useRouter();
   const [phone, setPhone] = useState('');
   const [error, setError] = useState("");
-  const [validate,setValidate] = useState(false)
+  const [validate, setValidate] = useState(false)
   const [login] = useMutation(PHONENUMBER);
 
   const handlePhone = (e) => {
@@ -40,21 +40,21 @@ const LoginPage = () => {
       setValidate(true)
       setPhone('')
     } else if (/[^\w\s]/.test(value)) {
-        setValidate(true)
+      setValidate(true)
       setError("Phone Number Cannot have Special Characters");
       setPhone('')
-    } else if(/[a-zA-Z]/.test(value)){
-        setValidate(true)
-        setError("Phone Number Cannot have alphabetics");
-        setPhone('')
-    }else {
+    } else if (/[a-zA-Z]/.test(value)) {
+      setValidate(true)
+      setError("Phone Number Cannot have alphabetics");
+      setPhone('')
+    } else {
       const response = await login({
         variables: { phone: phone },
       });
-           
-      console.log(response,'response')
+
+      console.log(response, 'response')
       if (response?.data?.login?.status == 200) {
-        localStorage.setItem("phonenumber", phone);
+        typeof window !== 'undefined' ? localStorage.setItem("phonenumber", phone) : null;
         Swal.fire({
           title: "Success",
           text: "OTP sent To your Phone Number",
@@ -63,11 +63,11 @@ const LoginPage = () => {
         router.push("/OtpVerify");
       } else if (response?.data?.login?.status == 404) {
         Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Your Phone Number is not Registered",
-          });
-          setPhone('')
+          icon: "error",
+          title: "Oops...",
+          text: "Your Phone Number is not Registered",
+        });
+        setPhone('')
       }
     }
   };
@@ -87,7 +87,7 @@ const LoginPage = () => {
                 placeholder="Your Phone Number"
               />
             </form>
-             <p className={validate && style.validation}>{...error}</p>
+            <p className={validate && style.validation}>{...error}</p>
             <button className={style.loginbtn} onClick={handleSubmit}>
               Login
             </button>
