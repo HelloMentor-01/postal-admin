@@ -264,7 +264,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -315,3 +315,29 @@
     top: 10px;
   }
   
+ 
+
+  /* Pagination Next and previous button */
+
+  .list{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+  }
+
+ 
+.number{
+  margin: 0;
+  padding: 0px 0px 12px 0px;
+  position: absolute;
+  bottom: 2rem;
+  right: 3rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.8;
+  text-align: center;
+}

@@ -1,0 +1,74 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.maincontainer{
+   margin: 0;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   align-content: center;
+}
+
+.fnt{
+   margin: 0;
+   padding: 0;
+      font-size: 5rem;
+      font-family: "Arvo", serif;
+      font-weight: 400;
+      font-style: normal;
+}
+
+.image{
+   margin: 0;
+   padding: 0;
+width: 100%;
+background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+height: 400px;
+background-position: center;
+background-repeat: no-repeat;
+ }
+ 
+
+ .fnt_{
+   padding: 0;
+   margin: 0;
+   font-size: 2rem;
+   font-family: "Arvo", serif;
+   font-weight: 400;
+   font-style: normal;
+   letter-spacing: 0.2rem;
+ }
+
+ .fnt__{
+   padding: 0.2rem;
+   margin: 0;
+   font-size: 1rem;
+   font-family: "Arvo", serif;
+   font-weight: 400;
+   font-style: normal;
+   text-align: center;
+ }
+
+ .btncontainer{
+   margin-top:2rem;
+   padding: 0;
+ }
+
+ .btn{
+   border:1px solid black;
+   background-color:#05B43A;
+   color: white;
+   cursor: pointer;
+   width: 150px;
+   height: 40px;
+   font-size: 1rem;
+   font-family: "Arvo", serif;
+   font-weight: 400;
+   font-style: normal;
+   text-align: center;
+   padding: 0;
+
+ }
+ 

@@ -12,6 +12,8 @@ import { gql, useQuery } from "@apollo/client";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import SearchSvg from "./Svg/SearchSvg";
+import { FcPrevious } from "react-icons/fc";
+import { FcNext } from "react-icons/fc";
 
 
 /*  Graphql Query */
@@ -44,6 +46,11 @@ const SectionOne = () => {
   const { data, loading, error } = useQuery(GET_CUSTOMER_DETAILS);
   const router = useRouter();
   const CustomerDetails = data?.getAllUserDetails?.data;
+
+
+   let lengthofData = CustomerDetails?.length
+
+  
 
   const [details, setDetails] = useState([])
 
@@ -95,6 +102,14 @@ const SectionOne = () => {
     PageNumber.push(i);
   }
 
+  /* Pagination */
+
+  // var pageNumbers = [];
+
+  // if(currentpage <= 3){
+  //   pageNumbers = [1,2,3,4 ,'...' ,+lengthofData -1  ]
+  // }
+
   // Const Pagination
   const Paginationpage = (data) => {
     setCurrentPage(data);
@@ -109,6 +124,27 @@ const SectionOne = () => {
   const [free, setFree] = useState();
   const [explore, setExplore] = useState();
   const [achieve, setAchieve] = useState();
+
+
+  /* Button pagination */
+  const [prev,setPrev] = useState(0)
+  const [next,setNext] = useState(3)
+
+
+  /* prev Button */
+  const handlePrev = () => {
+    if (prev > 0) {
+      setPrev(prev - 3);
+      setNext(next - 3);
+    }
+  };
+
+  const handleNext = () => {
+    if (next < PageNumber.length) {
+      setPrev(prev + 3);
+      setNext(next + 3);
+    }
+  };
 
   const handleSort = () => {
     const sortedusername = [...Paginationdata].sort((a, b) => {
@@ -362,18 +398,26 @@ const SectionOne = () => {
             </tbody>
           </table>
           <div className={style.paginationcontainer}>
-            <ul>
-              {PageNumber.map((data) => {
+           
+            <ul className={style.list}>
+            <p className={style.number}>Page - {currentpage} / {PageNumber.length}</p>
+            <FcPrevious size={25} onClick={handlePrev} />
+              {PageNumber.slice(prev,next).map((data,i) => {
                 return (
+                  <>
                   <li
+                  key={i}
                     style={{ background: currentpage == data && "#0a9ced" }}
                     className={style.paginationinside}
                     onClick={() => Paginationpage(data)}
                   >
                     {data}
                   </li>
+                  </>
                 );
               })}
+                
+                <FcNext size={25} onClick={handleNext} />
             </ul>
           </div>
         </div>
@@ -381,5 +425,6 @@ const SectionOne = () => {
     </>
   );
 };
+
 
 export default SectionOne;
