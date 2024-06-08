@@ -11,8 +11,8 @@ import Swal from 'sweetalert2'
 
 // Sending the data to the graphql
 const PHONENUMBER = gql`
-  mutation Login($phone: String!) {
-    login(phone_number: $phone) {
+mutation Login($phoneNumber: String!, $countryCode: String!) {
+    login(phone_number: $phoneNumber, country_code: $countryCode) {
       status
       message
       error
@@ -49,7 +49,7 @@ const LoginPage = () => {
       setPhone('')
     } else {
       const response = await login({
-        variables: { phone: phone },
+        variables: { phoneNumber: phone, countryCode: "+91" },
       });
 
       console.log(response, 'response')

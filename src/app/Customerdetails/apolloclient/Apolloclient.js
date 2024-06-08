@@ -9,14 +9,15 @@ const createApolloClient = (accessToken) => {
     const httpLink = createHttpLink({
         uri: "https://portal.hellomentor.in/graphql"
     });
-
+    const clientId = process.env.NEXT_PUBLIC_X_HM_Client_Token || "";
     // Function to set authorization headers
     const authLink = setContext((_, { headers }) => {
         // return the headers to the context so httpLink can read them
         return {
             headers: {
                 ...headers,
-                Authorization: accessToken ? `Bearer ${accessToken}` : ''
+                Authorization: accessToken ? `Bearer ${accessToken}` : '',
+                "X-HM-Client-Token": clientId,
             }
         };
     });
