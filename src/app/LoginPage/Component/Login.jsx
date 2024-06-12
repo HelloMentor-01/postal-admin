@@ -53,11 +53,9 @@ const LoginPage = () => {
       const response = await login({
         variables: { phoneNumber: phone, countryCode: "+91" },
       });
-
-      console.log(response, 'response')
       if (response?.data?.login?.status == 200) {
         const Active = response?.data?.login?.activePhoneNumber
-        console.log(Active,'active Number')
+
         typeof window !== 'undefined' ? localStorage.setItem("phonenumber", phone)  : null;
         typeof window !== 'undefined' ? localStorage.setItem("Active", Active)  : null;
         Swal.fire({

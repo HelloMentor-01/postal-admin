@@ -85,12 +85,12 @@ const OtpVerify = () => {
         activePhoneNumber:active
       },
     });
-    console.log(phone,'phone')
+  
 
     if (response?.data.verifyOtp.status === 200) {
       const saveAuth = response?.data?.verifyOtp?.accessToken;
       const SessionIdSave = response?.data?.verifyOtp?.sessionId;
-      console.log("SessionId",SessionIdSave);
+
       const saveName = response?.data?.verifyOtp?.data[0]?.first_name;
     typeof window !== 'undefined' ? localStorage.setItem('Auth', saveAuth) : null;
     typeof window !== 'undefined' ? localStorage.setItem('session', SessionIdSave) : null;
