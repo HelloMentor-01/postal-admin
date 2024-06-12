@@ -5,9 +5,9 @@ import { InMemoryCache, ApolloClient, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
  
 
-const createApolloClient = (accessToken) => {
+const createApolloClient = (accessToken,sessionId) => {
     const httpLink = createHttpLink({
-        uri: "https://portal.hellomentor.in/graphql"
+        uri: "http://postlogin-dev-2138289373.ap-south-1.elb.amazonaws.com/graphql"
     });
     const clientId = process.env.NEXT_PUBLIC_X_HM_Client_Token || "";
     // Function to set authorization headers
@@ -16,8 +16,10 @@ const createApolloClient = (accessToken) => {
         return {
             headers: {
                 ...headers,
-                Authorization: accessToken ? `Bearer ${accessToken}` : '',
+                Authorization: 
+                accessToken ? `Bearer ${accessToken}` : '',
                 "X-HM-Client-Token": clientId,
+                "SessionId":sessionId
             }
         };
     });
@@ -29,8 +31,8 @@ const createApolloClient = (accessToken) => {
 };
 
 // Component to initialize Apollo Client
-export default function StartApolloClient({ accessToken, children }) {
-    const client = createApolloClient(accessToken);
+export default function StartApolloClient({ accessToken,sessionId,children }) {
+    const client = createApolloClient(accessToken,sessionId);
 
     return (
         <ApolloProvider client={client}>

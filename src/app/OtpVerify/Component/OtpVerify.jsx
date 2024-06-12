@@ -8,26 +8,46 @@ import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2'
 
 
+// const OTPVERIFYPAGE = gql`
+//   mutation VerifyOtp($otp: String!, $phone: String!) {
+//     verifyOtp(otp: $otp, phone_number: $phone) {
+//       status
+//       message
+//       error
+//       accessToken
+//       data {
+//         id
+//         first_name
+//         last_name
+//         email
+//         phone_number
+//       }
+//     }
+//   }
+// `;
+
+
 const OTPVERIFYPAGE = gql`
-  mutation VerifyOtp($otp: String!, $phone: String!) {
-    verifyOtp(otp: $otp, phone_number: $phone) {
-      status
-      message
-      error
-      accessToken
-      data {
-        id
-        first_name
-        last_name
-        email
-        phone_number
-      }
+mutation Mutation($otp: String!, $phoneNumber: String!, $countryCode: String!, $activePhoneNumber: String!) {
+  verifyOtp(otp: $otp, phone_number: $phoneNumber, country_code: $countryCode, active_phone_number: $activePhoneNumber) {
+    accessToken
+    error
+    message
+    sessionId
+    status
+    data {
+      id
+      first_name
+      last_name
+      phone_number
+      email
     }
   }
+}
 `;
-
 const OtpVerify = () => {
   const Router = useRouter();
+  const [active,setactiveNumber] = useState('')
   const [verifyOtp] = useMutation(OTPVERIFYPAGE);
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -35,9 +55,11 @@ const OtpVerify = () => {
 
   useEffect(() => {
     const phoneNumber =  typeof window !== 'undefined' ? localStorage.getItem('phonenumber') : null;
-    if (phoneNumber) {
+    const ActiveNumber =  typeof window !== 'undefined' ? localStorage.getItem('Active') : null;
+    if (phoneNumber && ActiveNumber) {
       setPhone(phoneNumber);
-     typeof window !== 'undefined' ? localStorage.clear() : null;
+      setactiveNumber(ActiveNumber)
+    //  typeof window !== 'undefined' ? localStorage.clear() : null;
     }
   }, []);
 
@@ -58,14 +80,20 @@ const OtpVerify = () => {
     const response = await verifyOtp({
       variables: {
         otp: otp.join(''),
-        phone: phone,
+        phoneNumber: phone,
+        countryCode:"+91",
+        activePhoneNumber:active
       },
     });
+    console.log(phone,'phone')
 
     if (response?.data.verifyOtp.status === 200) {
       const saveAuth = response?.data?.verifyOtp?.accessToken;
+      const SessionIdSave = response?.data?.verifyOtp?.sessionId;
+      console.log("SessionId",SessionIdSave);
       const saveName = response?.data?.verifyOtp?.data[0]?.first_name;
     typeof window !== 'undefined' ? localStorage.setItem('Auth', saveAuth) : null;
+    typeof window !== 'undefined' ? localStorage.setItem('session', SessionIdSave) : null;
     typeof window !== 'undefined' ? localStorage.setItem('Profile', JSON.stringify(saveName)): null;
       setOtp(['', '', '', '']);
       Swal.fire({

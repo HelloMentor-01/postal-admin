@@ -15,6 +15,7 @@ mutation Login($phoneNumber: String!, $countryCode: String!) {
     login(phone_number: $phoneNumber, country_code: $countryCode) {
       status
       message
+      activePhoneNumber
       error
     }
   }
@@ -30,6 +31,7 @@ const LoginPage = () => {
   const handlePhone = (e) => {
     setValidate(false)
     setPhone(e.target.value);
+    
   };
 
   const handleSubmit = async (e) => {
@@ -54,7 +56,10 @@ const LoginPage = () => {
 
       console.log(response, 'response')
       if (response?.data?.login?.status == 200) {
-        typeof window !== 'undefined' ? localStorage.setItem("phonenumber", phone) : null;
+        const Active = response?.data?.login?.activePhoneNumber
+        console.log(Active,'active Number')
+        typeof window !== 'undefined' ? localStorage.setItem("phonenumber", phone)  : null;
+        typeof window !== 'undefined' ? localStorage.setItem("Active", Active)  : null;
         Swal.fire({
           title: "Success",
           text: "OTP sent To your Phone Number",
