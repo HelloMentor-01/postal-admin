@@ -7,7 +7,7 @@ import { setContext } from '@apollo/client/link/context';
 
 const createApolloClient = (accessToken,sessionId) => {
     const httpLink = createHttpLink({
-        uri: "http://postlogin-dev-2138289373.ap-south-1.elb.amazonaws.com/graphql"
+        uri: "http://62.72.29.225:8000/graphql"
     });
     const clientId = process.env.NEXT_PUBLIC_X_HM_Client_Token || "";
     // Function to set authorization headers
