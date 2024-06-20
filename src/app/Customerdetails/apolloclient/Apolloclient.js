@@ -7,7 +7,7 @@ import { setContext } from '@apollo/client/link/context';
 
 const createApolloClient = (accessToken,sessionId) => {
     const httpLink = createHttpLink({
-        uri: "http://postlogin-server.hellomentor.online/graphql"
+        uri: "https://portal.hellomentor.in/graphql"
     });
     const clientId = process.env.NEXT_PUBLIC_X_HM_Client_Token || "";
     // Function to set authorization headers
