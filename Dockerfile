@@ -18,7 +18,7 @@ RUN npm run build
 RUN npm install -g pm2
 
 # Expose the port that PM2 will run on
-EXPOSE 3000
+EXPOSE 3001
 
 # Start the app with PM2
 CMD ["pm2-runtime", "start", "npm", "--", "start"]
