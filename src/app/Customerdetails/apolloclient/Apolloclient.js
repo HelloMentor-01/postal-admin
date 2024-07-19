@@ -19,7 +19,7 @@ const createApolloClient = (accessToken,sessionId) => {
                 Authorization: 
                 accessToken ? `Bearer ${accessToken}` : '',
                 "X-HM-Client-Token": clientId,
-                "SessionId":sessionId
+                // "SessionId":sessionId
             }
         };
     });

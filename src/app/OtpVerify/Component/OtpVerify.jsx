@@ -28,12 +28,11 @@ import Swal from 'sweetalert2'
 
 
 const OTPVERIFYPAGE = gql`
-mutation Mutation($otp: String!, $phoneNumber: String!, $countryCode: String!, $activePhoneNumber: String!) {
-  verifyOtp(otp: $otp, phone_number: $phoneNumber, country_code: $countryCode, active_phone_number: $activePhoneNumber) {
+mutation Mutation($otp: String!, $phoneNumber: String!, $countryCode: String!) {
+  verifyOtp(otp: $otp, phone_number: $phoneNumber, country_code: $countryCode) {
     accessToken
     error
     message
-    sessionId
     status
     data {
       id
@@ -82,7 +81,7 @@ const OtpVerify = () => {
         otp: otp.join(''),
         phoneNumber: phone,
         countryCode:"+91",
-        activePhoneNumber:active
+        // activePhoneNumber:active
       },
     });
   

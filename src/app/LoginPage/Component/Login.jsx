@@ -15,7 +15,6 @@ mutation Login($phoneNumber: String!, $countryCode: String!) {
     login(phone_number: $phoneNumber, country_code: $countryCode) {
       status
       message
-      activePhoneNumber
       error
     }
   }
