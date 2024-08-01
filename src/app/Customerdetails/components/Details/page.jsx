@@ -273,6 +273,13 @@ const SectionOne = () => {
     var ws = XLSX.utils.json_to_sheet(Result);
     XLSX.utils.book_append_sheet(wb, ws, 'SubscriptionDetails');
     XLSX.writeFile(wb, 'SubscriptionDetails.xlsx');
+    Swal.fire({
+      title: "Downloaded",
+      text: "Excel Downloaded Succesfully",
+      icon: "success"
+    });
+    
+    
     }else{
       Swal.fire({
         icon: "error",
@@ -383,7 +390,7 @@ const SectionOne = () => {
             />
             <span>Total Purchase - {CustomerDetails?.length}</span>
 
-            {/* Download the Excel Data */}
+            {/* Download the Excel Data */} 
             <IoCloudDownloadOutline onClick={handleExceltojson} size={30}  style={{ color: '#0a9ced' }}  />
           </div>
 
