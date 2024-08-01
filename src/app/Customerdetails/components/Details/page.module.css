@@ -40,6 +40,8 @@
   background: #0a9ced;
   padding: 5px;
   border: 1px solid #ddd;
+  text-align: center;
+
 }
 
 .td {
@@ -340,4 +342,14 @@
   font-weight: 600;
   line-height: 1.8;
   text-align: center;
+}
+
+
+.emailerrorfnt{
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.8;
+  text-align: start;
+  color: red;
 }

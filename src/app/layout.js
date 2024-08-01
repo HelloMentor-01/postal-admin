@@ -1,6 +1,9 @@
 
 'use client'
 import StartApolloClient from '../app/Customerdetails/apolloclient/Apolloclient'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 
 export default function RootLayout({ children }) {
