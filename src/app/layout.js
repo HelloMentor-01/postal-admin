@@ -13,6 +13,16 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+     <head>
+    <title>hellomentor</title>
+    <link
+  rel="icon"
+  href="/favicon.ico"
+  type="image/png"
+ sizes="any"
+/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <body>
         <StartApolloClient accessToken={Token} sessionId={Session} >
